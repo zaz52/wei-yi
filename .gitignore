@@ -1,6 +1,7 @@
 .worktrees/
 .worktrees
 .superpowers/
+.tmp-*/
 node_modules/
 dist/
 release-portable/
