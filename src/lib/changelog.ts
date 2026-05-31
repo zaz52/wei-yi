@@ -9,6 +9,38 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "0.4.12",
+    date: "2026-05-31",
+    highlights: {
+      en: [
+        "修复大纲提取初始记忆在记忆中心显示\u201c第0章\u201d的问题，现在正确显示大纲名称。",
+        "修复人物小传提取初始记忆后无法在记忆中心显示的问题（之前会被总大纲覆盖）。",
+        "大纲模块增加\u201c查看快照\u201d功能，提取初始记忆后可直接查看和编辑快照内容。",
+        "修复\u201c提取初始记忆\u201d按钮状态无法保持的问题，切换页面后返回仍显示已提取状态。",
+        "设置页面更新日志增加完整版本历史和\u201c检查更新\u201d功能。",
+      ],
+      zh: [
+        "修复大纲提取初始记忆在记忆中心显示\u201c第0章\u201d的问题，现在正确显示大纲名称。",
+        "修复人物小传提取初始记忆后无法在记忆中心显示的问题（之前会被总大纲覆盖）。",
+        "大纲模块增加\u201c查看快照\u201d功能，提取初始记忆后可直接查看和编辑快照内容。",
+        "修复\u201c提取初始记忆\u201d按钮状态无法保持的问题，切换页面后返回仍显示已提取状态。",
+        "设置页面更新日志增加完整版本历史和\u201c检查更新\u201d功能。",
+      ],
+    },
+  },
+  {
+    version: "0.4.11",
+    date: "2026-05-31",
+    highlights: {
+      en: [
+        "新增用户统计功能（下载人数 + 在线人数），基于 Cloudflare Workers + D1 零成本方案。",
+      ],
+      zh: [
+        "新增用户统计功能（下载人数 + 在线人数），基于 Cloudflare Workers + D1 零成本方案。",
+      ],
+    },
+  },
+  {
     version: "0.4.10",
     date: "2026-05-20",
     highlights: {
@@ -30,4 +62,8 @@ export const CHANGELOG: ChangelogEntry[] = [
 
 export function currentVersionChangelog(version: string): ChangelogEntry[] {
   return CHANGELOG.filter((entry) => entry.version === version)
+}
+
+export function allChangelog(): ChangelogEntry[] {
+  return CHANGELOG
 }

@@ -169,6 +169,9 @@ export function PreviewPanel() {
   const [isSavingFinal, setIsSavingFinal] = useState(false)
   const [saveStatus, setSaveStatus] = useState<string>("")
   const [showSnapshot, setShowSnapshot] = useState(false)
+  const [showOutlineSnapshot, setShowOutlineSnapshot] = useState(false)
+  const [outlineSnapshotNumber, setOutlineSnapshotNumber] = useState<number | null>(null)
+  const [outlineIngested, setOutlineIngested] = useState(false)
   const [showCognition, setShowCognition] = useState(false)
   const [deAiProcessing, setDeAiProcessing] = useState(false)
   const [deAiPreviewOpen, setDeAiPreviewOpen] = useState(false)
@@ -353,6 +356,27 @@ export function PreviewPanel() {
   const alreadyFinal = chapterFrontmatter ? isFinalChapter(chapterFrontmatter) : false
   const canFormatWriting = Boolean(selectedFile && getFileCategory(selectedFile) === "markdown" && isChapterPath(selectedFile))
   const canIngestOutline = Boolean(novelMode && project && selectedFile && getFileCategory(selectedFile) === "markdown" && isOutlinePath(selectedFile))
+
+  // 检测大纲是否已经提取过初始记忆（持久化状态）
+  useEffect(() => {
+    if (!canIngestOutline || !project || !selectedFile) {
+      setOutlineIngested(false)
+      setOutlineSnapshotNumber(null)
+      return
+    }
+    const normalizedOutlinePath = normalizePath(selectedFile)
+    const fileName = normalizedOutlinePath.split("/").pop() ?? "outline"
+    const outlineName = fileName.replace(/\.\w+$/, "")
+    let hash = 0
+    for (let i = 0; i < outlineName.length; i++) {
+      hash = ((hash << 5) - hash + outlineName.charCodeAt(i)) | 0
+    }
+    const outlineNum = -(Math.abs(hash % 999) + 1)
+    setOutlineSnapshotNumber(outlineNum)
+    const prefix = `outline-${String(Math.abs(outlineNum)).padStart(3, "0")}`
+    const jsonPath = `${normalizePath(project.path)}/.novel/snapshots/${prefix}.snapshot.json`
+    fileExists(jsonPath).then((exists) => setOutlineIngested(exists)).catch(() => setOutlineIngested(false))
+  }, [canIngestOutline, project, selectedFile])
   const chapterNumber = useMemo(() => {
     if (!chapterFrontmatter) return null
     const meta = parseChapterMeta(chapterFrontmatter)
@@ -634,6 +658,7 @@ export function PreviewPanel() {
         const tree = await listDirectory(normalizePath(project.path))
         setFileTree(tree)
         bumpDataVersion()
+        setOutlineIngested(true)
         setSaveStatus(t("novel.outlineGenerator.ingestSuccessNotification"))
       } else {
         setSaveStatus(t("novel.outlineGenerator.ingestFailedNotification"))
@@ -935,10 +960,24 @@ export function PreviewPanel() {
               type="button"
               onClick={() => void handleIngestOutline()}
               disabled={isSavingFinal}
-              className="shrink-0 rounded border border-border px-2 py-1 text-xs text-foreground hover:bg-accent disabled:cursor-not-allowed disabled:opacity-50"
-              title={t("novel.outlineGenerator.ingest")}
+              className={`shrink-0 rounded border px-2 py-1 text-xs disabled:cursor-not-allowed disabled:opacity-50 ${
+                outlineIngested
+                  ? "border-emerald-500/50 text-emerald-700 hover:bg-emerald-50 dark:text-emerald-300 dark:hover:bg-emerald-950/30"
+                  : "border-border text-foreground hover:bg-accent"
+              }`}
+              title={outlineIngested ? "重新提取初始记忆（将覆盖上次提取的内容）" : t("novel.outlineGenerator.ingest")}
             >
-              {isSavingFinal ? t("novel.outlineGenerator.ingesting") : t("novel.outlineGenerator.ingest")}
+              {isSavingFinal ? t("novel.outlineGenerator.ingesting") : outlineIngested ? "✓ 已提取记忆" : t("novel.outlineGenerator.ingest")}
+            </button>
+          ) : null}
+          {canIngestOutline && outlineIngested && outlineSnapshotNumber !== null ? (
+            <button
+              type="button"
+              onClick={() => setShowOutlineSnapshot(true)}
+              className="shrink-0 rounded border border-border px-2 py-1 text-xs text-foreground hover:bg-accent"
+              title="查看该大纲提取的快照详情"
+            >
+              查看快照
             </button>
           ) : null}
           {canSaveAsFinal && !alreadyFinal ? (
@@ -1037,6 +1076,15 @@ export function PreviewPanel() {
             projectPath={project.path}
             chapterNumber={chapterNumber}
             onClose={() => setShowSnapshot(false)}
+          />
+        </Suspense>
+      ) : null}
+      {showOutlineSnapshot && project && outlineSnapshotNumber !== null ? (
+        <Suspense fallback={<div className="flex h-full items-center justify-center text-sm text-muted-foreground">Loading...</div>}>
+          <SnapshotViewer
+            projectPath={project.path}
+            chapterNumber={outlineSnapshotNumber}
+            onClose={() => setShowOutlineSnapshot(false)}
           />
         </Suspense>
       ) : null}
