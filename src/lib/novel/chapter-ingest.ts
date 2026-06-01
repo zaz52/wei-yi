@@ -853,6 +853,7 @@ export async function syncSnapshotToMemory(
     await syncForeshadowingChanges(pp, syncedSnapshot)
   }
 
+  await backupSnapshotBeforeOverwrite(pp, syncedSnapshot.chapterNumber)
   await saveSnapshot(pp, syncedSnapshot)
   const memoryPagePaths = await exportStructuredMemoryToWiki(pp, syncedSnapshot)
   clearGraphCache()
