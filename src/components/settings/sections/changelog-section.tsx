@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next"
 import { RefreshCw, Download, CheckCircle, AlertCircle } from "lucide-react"
 import { allChangelog } from "@/lib/changelog"
 import { isTauri } from "@/lib/platform"
+import { formatUpdateErrorMessage } from "@/lib/update-error-message"
 
 type UpdateStatus = "idle" | "checking" | "up-to-date" | "available" | "downloading" | "ready" | "error"
 
@@ -39,7 +40,7 @@ export function ChangelogSection() {
       }
     } catch (err) {
       setUpdateStatus("error")
-      setErrorMessage(err instanceof Error ? err.message : String(err))
+      setErrorMessage(formatUpdateErrorMessage(err))
     }
   }
 
@@ -74,7 +75,7 @@ export function ChangelogSection() {
       setDownloadProgress(100)
     } catch (err) {
       setUpdateStatus("error")
-      setErrorMessage(err instanceof Error ? err.message : String(err))
+      setErrorMessage(formatUpdateErrorMessage(err))
     }
   }
 
