@@ -97,6 +97,7 @@ export function AppLayout({ onSwitchProject }: AppLayoutProps) {
   const isSettings = activeView === "settings"
   // Novel mode keeps the writing editor inside the chapter workspace only.
   // Outline/search/graph views no longer mount a secondary preview panel.
+  const projectName = project?.name?.trim() || "未打开项目"
 
   useEffect(() => {
     const savedCollapsed = localStorage.getItem("lk-sidebar-collapsed")
@@ -115,7 +116,7 @@ export function AppLayout({ onSwitchProject }: AppLayoutProps) {
   }, [])
 
   return (
-    <div className="flex h-screen flex-col bg-background text-foreground">
+    <div className="wy-app-shell flex h-screen bg-background text-foreground">
       {latestOutlineTask && (
         <div className="fixed bottom-3 right-3 z-50 w-80 rounded-lg border bg-background p-3 shadow-lg">
           <div className="text-sm font-medium">
@@ -178,7 +179,7 @@ export function AppLayout({ onSwitchProject }: AppLayoutProps) {
         </div>
       )}
       {!isSettings && !usageGuidePromptDismissed && (
-        <div className="fixed bottom-4 left-14 z-50 w-56 rounded-lg border border-primary/40 bg-background/95 p-3 shadow-xl backdrop-blur">
+        <div className="fixed bottom-4 left-24 z-50 w-56 rounded-lg border border-primary/40 bg-background/95 p-3 shadow-xl backdrop-blur">
           <button
             type="button"
             onClick={dismissUsageGuidePrompt}
@@ -209,35 +210,52 @@ export function AppLayout({ onSwitchProject }: AppLayoutProps) {
           </button>
         </div>
       )}
-      <div className="flex min-h-0 flex-1">
-        <IconSidebar
-          onToggleSidebar={() => setSidebarCollapsed((v) => !v)}
-          onOpenSidebar={() => setSidebarCollapsed(false)}
-          onSwitchProject={onSwitchProject}
-        />
-        <div ref={containerRef} className="flex min-w-0 flex-1 overflow-hidden">
-        {!isSettings && !sidebarCollapsed && (
-          <>
-            <div
-              className="flex shrink-0 flex-col overflow-hidden border-r"
-              style={{ width: leftWidth }}
-            >
-              <div className="flex-1 overflow-hidden">
-                <SidebarPanel />
+      <IconSidebar
+        onToggleSidebar={() => setSidebarCollapsed((v) => !v)}
+        onOpenSidebar={() => setSidebarCollapsed(false)}
+        onSwitchProject={onSwitchProject}
+      />
+      <div className="wy-main-shell flex min-w-0 flex-1 flex-col">
+        <header className="wy-topbar flex h-11 shrink-0 items-center justify-between border-b px-4">
+          <div className="flex min-w-0 items-center gap-3">
+            <span className="h-2 w-2 rounded-full bg-primary shadow-[0_0_0_4px_color-mix(in_oklch,var(--primary)_14%,transparent)]" />
+            <div className="min-w-0">
+              <div className="truncate text-sm font-semibold leading-5">唯一 · 长篇小说工作台</div>
+              <div className="truncate text-[11px] leading-4 text-muted-foreground" title={project?.path}>
+                {projectName}
               </div>
-              <ActivityPanel />
             </div>
-            <div
-              className="w-1.5 shrink-0 cursor-col-resize bg-border/40 transition-colors hover:bg-primary/30 active:bg-primary/40"
-              onMouseDown={startDrag("left")}
-            />
-          </>
-        )}
-        <div className="min-w-0 flex-1 overflow-hidden">
-          <ErrorBoundary>
-            <ContentArea />
-          </ErrorBoundary>
-        </div>
+          </div>
+          <div className="hidden items-center gap-2 text-[11px] text-muted-foreground sm:flex">
+            <span className="rounded-sm border border-border/80 bg-background/60 px-2 py-1">外壳布局版</span>
+            <span className="rounded-sm border border-border/80 bg-background/60 px-2 py-1">
+              {isSettings ? "系统设置" : sidebarCollapsed ? "专注写作" : "资料侧栏"}
+            </span>
+          </div>
+        </header>
+        <div ref={containerRef} className="wy-workbench flex min-h-0 min-w-0 flex-1 overflow-hidden">
+          {!isSettings && !sidebarCollapsed && (
+            <>
+              <div
+                className="wy-left-panel flex shrink-0 flex-col overflow-hidden border-r"
+                style={{ width: leftWidth }}
+              >
+                <div className="flex-1 overflow-hidden">
+                  <SidebarPanel />
+                </div>
+                <ActivityPanel />
+              </div>
+              <div
+                className="wy-resize-handle w-1.5 shrink-0 cursor-col-resize"
+                onMouseDown={startDrag("left")}
+              />
+            </>
+          )}
+          <div className="wy-content-shell min-w-0 flex-1 overflow-hidden">
+            <ErrorBoundary>
+              <ContentArea />
+            </ErrorBoundary>
+          </div>
         </div>
       </div>
     </div>

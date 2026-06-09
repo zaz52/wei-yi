@@ -28,6 +28,15 @@ const NAV_ITEMS: { view: NavView; icon: typeof FileText; labelKey: string; novel
   { view: "reviewCenter", icon: LayoutDashboard, labelKey: "nav.reviewCenter", novelLabelKey: "novel.nav.reviewCenter" },
 ]
 
+const NAV_GROUPS: Array<{
+  label: string
+  views: NavView[]
+}> = [
+  { label: "创作", views: ["wiki", "sources"] },
+  { label: "记忆", views: ["graph", "lint", "soul"] },
+  { label: "审稿", views: ["reviewCenter"] },
+]
+
 interface IconSidebarProps {
   onToggleSidebar?: () => void
   onOpenSidebar?: () => void
@@ -159,56 +168,80 @@ export function IconSidebar({ onToggleSidebar, onOpenSidebar, onSwitchProject }:
     setActiveView("search")
   }
 
+  const renderNavItem = ({ view, icon: Icon, labelKey, novelLabelKey }: typeof NAV_ITEMS[number]) => {
+    const label = t(novelMode ? novelLabelKey : labelKey)
+
+    return (
+      <Tooltip key={view}>
+        <TooltipTrigger
+          onClick={() => handleNavClick(view)}
+          className={`wy-rail-button relative ${
+            activeView === view
+              ? "qm-selected"
+              : "text-sidebar-foreground/70 qm-hover"
+          }`}
+        >
+          <Icon className="h-[18px] w-[18px]" />
+          <span className="wy-rail-label">{label}</span>
+          {view === "reviewCenter" && pendingCount > 0 && (
+            <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-primary px-1 text-[10px] font-bold text-primary-foreground">
+              {pendingCount > 99 ? "99+" : pendingCount}
+            </span>
+          )}
+        </TooltipTrigger>
+        <TooltipContent side="right">
+          {label}
+          {view === "reviewCenter" && pendingCount > 0 && ` (${pendingCount})`}
+        </TooltipContent>
+      </Tooltip>
+    )
+  }
+
   return (
     <TooltipProvider delay={300}>
-      <div className="flex h-full w-12 flex-col items-center border-r border-sidebar-border bg-sidebar py-2 text-sidebar-foreground shadow-[inset_-1px_0_0_color-mix(in_oklch,var(--sidebar-border)_75%,transparent)]">
+      <div className="wy-rail flex h-full w-[76px] flex-col items-center border-r border-sidebar-border bg-sidebar px-2 py-3 text-sidebar-foreground">
         <button
           type="button"
           onClick={onToggleSidebar}
-          className="mb-2 flex items-center justify-center rounded-md border border-sidebar-border bg-sidebar-accent/70 p-0.5 shadow-sm transition-colors hover:bg-sidebar-accent"
+          className="wy-brand-button mb-4 flex w-full items-center gap-2 rounded-md border border-sidebar-border bg-sidebar-accent/70 p-1.5 shadow-sm transition-colors hover:bg-sidebar-accent"
           title={t("iconSidebar.toggleSidebar")}
         >
           <img
             src={logoImg}
             alt={t("iconSidebar.logoAlt")}
-            className="h-6 w-6 rounded-[22%]"
+            className="h-7 w-7 rounded-[22%]"
           />
+          <span className="min-w-0 text-left">
+            <span className="block truncate text-sm font-semibold leading-4">唯一</span>
+            <span className="block truncate text-[10px] leading-3 text-sidebar-foreground/60">WORK</span>
+          </span>
         </button>
         {/* Top: main nav items */}
-        <div className="flex flex-1 flex-col items-center gap-1">
-          {NAV_ITEMS.map(({ view, icon: Icon, labelKey, novelLabelKey }) => (
-            <Tooltip key={view}>
-              <TooltipTrigger
-                onClick={() => handleNavClick(view)}
-                className={`relative flex h-10 w-10 items-center justify-center rounded-md transition-colors ${
-                  activeView === view
-                    ? "qm-selected"
-                    : "text-sidebar-foreground/70 qm-hover"
-                }`}
-              >
-                <Icon className="h-5 w-5" />
-                {view === "reviewCenter" && pendingCount > 0 && (
-                  <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-primary px-1 text-[10px] font-bold text-primary-foreground">
-                    {pendingCount > 99 ? "99+" : pendingCount}
-                  </span>
-                )}
-              </TooltipTrigger>
-              <TooltipContent side="right">
-                {t(novelMode ? novelLabelKey : labelKey)}
-                {view === "reviewCenter" && pendingCount > 0 && ` (${pendingCount})`}
-              </TooltipContent>
-            </Tooltip>
+        <div className="flex flex-1 flex-col items-center gap-2 overflow-y-auto overflow-x-hidden pb-2">
+          {NAV_GROUPS.map((group) => (
+            <div key={group.label} className="w-full">
+              <div className="wy-rail-group-label">{group.label}</div>
+              <div className="mt-1 flex flex-col gap-1">
+                {group.views.map((view) => {
+                  const item = NAV_ITEMS.find((candidate) => candidate.view === view)
+                  return item ? renderNavItem(item) : null
+                })}
+              </div>
+            </div>
           ))}
           <Tooltip>
             <TooltipTrigger
               onClick={handleSearchClick}
-              className={`relative flex h-10 w-10 items-center justify-center rounded-md transition-colors ${
+              className={`wy-rail-button relative ${
                 activeView === "search"
                   ? "qm-selected"
                   : "text-sidebar-foreground/70 qm-hover"
               }`}
             >
-              <Search className="h-5 w-5" />
+              <Search className="h-[18px] w-[18px]" />
+              <span className="wy-rail-label">
+                {t(novelMode ? SEARCH_NAV_ITEM.novelLabelKey : SEARCH_NAV_ITEM.labelKey)}
+              </span>
             </TooltipTrigger>
             <TooltipContent side="right">
               {t(novelMode ? SEARCH_NAV_ITEM.novelLabelKey : SEARCH_NAV_ITEM.labelKey)}
@@ -221,19 +254,20 @@ export function IconSidebar({ onToggleSidebar, onOpenSidebar, onSwitchProject }:
                 setActiveView("trash")
                 onOpenSidebar?.()
               }}
-              className={`relative flex h-10 w-10 items-center justify-center rounded-md transition-colors ${
+              className={`wy-rail-button relative ${
                 activeView === "trash"
                   ? "qm-selected"
                   : "text-sidebar-foreground/70 qm-hover"
               }`}
             >
-              <Trash2 className="h-5 w-5" />
+              <Trash2 className="h-[18px] w-[18px]" />
+              <span className="wy-rail-label">{t("nav.trash")}</span>
             </TooltipTrigger>
             <TooltipContent side="right">{t("nav.trash")}</TooltipContent>
           </Tooltip>
         </div>
         {/* Bottom: daemon status + theme toggle + settings + switch project */}
-        <div className="flex flex-col items-center gap-1 pb-1">
+        <div className="flex w-full flex-col items-center gap-1 border-t border-sidebar-border/70 pt-2">
           {/* Model connection status indicator */}
           <Tooltip>
             <TooltipTrigger className="flex h-6 w-6 items-center justify-center">
@@ -255,9 +289,10 @@ export function IconSidebar({ onToggleSidebar, onOpenSidebar, onSwitchProject }:
           <Tooltip>
             <TooltipTrigger
               onClick={handleCycleTheme}
-              className="relative flex h-10 w-10 items-center justify-center rounded-md text-sidebar-foreground/70 transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+              className="wy-rail-button relative text-sidebar-foreground/70"
             >
               {getThemeIcon()}
+              <span className="wy-rail-label">主题</span>
             </TooltipTrigger>
             <TooltipContent side="right">
               {getThemeTooltip()}
@@ -269,13 +304,14 @@ export function IconSidebar({ onToggleSidebar, onOpenSidebar, onSwitchProject }:
                 setSearchPanelOpen(false)
                 setActiveView("settings")
               }}
-              className={`relative flex h-10 w-10 items-center justify-center rounded-md transition-colors ${
+              className={`wy-rail-button relative ${
                 activeView === "settings"
                   ? "qm-selected"
                   : "text-sidebar-foreground/70 qm-hover"
               }`}
             >
-              <Settings className="h-5 w-5" />
+              <Settings className="h-[18px] w-[18px]" />
+              <span className="wy-rail-label">{t(novelMode ? "novel.nav.settings" : "nav.settings")}</span>
             </TooltipTrigger>
             <TooltipContent side="right">
               {t(novelMode ? "novel.nav.settings" : "nav.settings")}
@@ -287,9 +323,10 @@ export function IconSidebar({ onToggleSidebar, onOpenSidebar, onSwitchProject }:
                 setSearchPanelOpen(false)
                 onSwitchProject()
               }}
-              className="flex h-10 w-10 items-center justify-center rounded-md text-sidebar-foreground/70 transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+              className="wy-rail-button text-sidebar-foreground/70"
             >
-              <ArrowLeftRight className="h-5 w-5" />
+              <ArrowLeftRight className="h-[18px] w-[18px]" />
+              <span className="wy-rail-label">切换</span>
             </TooltipTrigger>
             <TooltipContent side="right">{t("nav.switchProject")}</TooltipContent>
           </Tooltip>
