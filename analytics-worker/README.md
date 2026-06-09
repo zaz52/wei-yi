@@ -1,4 +1,4 @@
-# 青幕AI写作 - 用户统计服务端
+# QMai Studio - 用户统计服务端
 
 基于 Cloudflare Workers + D1 的零成本用户统计方案。
 
@@ -27,13 +27,13 @@ wrangler login
 
 ```bash
 cd analytics-worker
-wrangler d1 create qmai-analytics-db
+wrangler d1 create qmai-studio-analytics-db
 ```
 
 执行后会输出类似：
 
 ```
-✅ Successfully created DB 'qmai-analytics-db'
+✅ Successfully created DB 'qmai-studio-analytics-db'
 database_id = "xxxx-xxxx-xxxx-xxxx"
 ```
 
@@ -42,7 +42,7 @@ database_id = "xxxx-xxxx-xxxx-xxxx"
 ### 第四步：初始化数据库表
 
 ```bash
-wrangler d1 execute qmai-analytics-db --remote --file=./schema.sql
+wrangler d1 execute qmai-studio-analytics-db --remote --file=./schema.sql
 ```
 
 ### 第五步：设置查看密钥
@@ -62,7 +62,7 @@ wrangler deploy
 
 部署成功后会显示 Worker 的 URL，类似：
 ```
-https://qmai-analytics.你的子域名.workers.dev
+https://qmai-studio-analytics.你的子域名.workers.dev
 ```
 
 ### 第七步：更新客户端配置
@@ -70,7 +70,7 @@ https://qmai-analytics.你的子域名.workers.dev
 打开 `src/lib/analytics.ts`，将 `ANALYTICS_URL` 替换为你的实际 Worker URL：
 
 ```typescript
-const ANALYTICS_URL = "https://qmai-analytics.你的子域名.workers.dev"
+const ANALYTICS_URL = "https://qmai-studio-analytics.你的子域名.workers.dev"
 ```
 
 ## 查看统计数据
@@ -79,7 +79,7 @@ const ANALYTICS_URL = "https://qmai-analytics.你的子域名.workers.dev"
 
 直接访问：
 ```
-https://qmai-analytics.你的子域名.workers.dev/dashboard?key=你设置的密钥
+https://qmai-studio-analytics.你的子域名.workers.dev/dashboard?key=你设置的密钥
 ```
 
 手机/电脑浏览器均可。
@@ -88,7 +88,7 @@ https://qmai-analytics.你的子域名.workers.dev/dashboard?key=你设置的密
 
 ```bash
 curl -H "Authorization: Bearer 你设置的密钥" \
-  https://qmai-analytics.你的子域名.workers.dev/stats
+  https://qmai-studio-analytics.你的子域名.workers.dev/stats
 ```
 
 返回内容：

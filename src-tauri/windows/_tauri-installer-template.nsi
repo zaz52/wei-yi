@@ -69,7 +69,7 @@ ${StrLoc}
 !define UNINSTALLERSIGNCOMMAND "{{uninstaller_sign_cmd}}"
 !define ESTIMATEDSIZE "{{estimated_size}}"
 !define STARTMENUFOLDER "{{start_menu_folder}}"
-!define INSTALLDIRNAME "QMaiWrite"
+!define INSTALLDIRNAME "QMaiStudio"
 
 Var PassiveMode
 Var UpdateMode
@@ -498,9 +498,9 @@ Function .onInit
   !insertmacro SetContext
 
   ${If} $INSTDIR == "${PLACEHOLDER_INSTALL_DIR}"
-    ; Prefer D drive as default install location when available.
-    ${If} ${FileExists} "D:\*.*"
-      StrCpy $INSTDIR "D:\${INSTALLDIRNAME}"
+    ; Prefer E drive as default install location for this white-label build.
+    ${If} ${FileExists} "E:\*.*"
+      StrCpy $INSTDIR "E:\${INSTALLDIRNAME}"
     ${Else}
       ; Fall back to install mode defaults.
       !if "${INSTALLMODE}" == "perMachine"

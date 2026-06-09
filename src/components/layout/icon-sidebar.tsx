@@ -161,11 +161,11 @@ export function IconSidebar({ onToggleSidebar, onOpenSidebar, onSwitchProject }:
 
   return (
     <TooltipProvider delay={300}>
-      <div className="flex h-full w-12 flex-col items-center border-r bg-muted/50 py-2">
+      <div className="flex h-full w-12 flex-col items-center border-r border-sidebar-border bg-sidebar py-2 text-sidebar-foreground shadow-[inset_-1px_0_0_color-mix(in_oklch,var(--sidebar-border)_75%,transparent)]">
         <button
           type="button"
           onClick={onToggleSidebar}
-          className="mb-2 flex items-center justify-center rounded-md p-0.5 transition-colors hover:bg-accent/50"
+          className="mb-2 flex items-center justify-center rounded-md border border-sidebar-border bg-sidebar-accent/70 p-0.5 shadow-sm transition-colors hover:bg-sidebar-accent"
           title={t("iconSidebar.toggleSidebar")}
         >
           <img
@@ -183,7 +183,7 @@ export function IconSidebar({ onToggleSidebar, onOpenSidebar, onSwitchProject }:
                 className={`relative flex h-10 w-10 items-center justify-center rounded-md transition-colors ${
                   activeView === view
                     ? "qm-selected"
-                    : "text-muted-foreground qm-hover"
+                    : "text-sidebar-foreground/70 qm-hover"
                 }`}
               >
                 <Icon className="h-5 w-5" />
@@ -205,7 +205,7 @@ export function IconSidebar({ onToggleSidebar, onOpenSidebar, onSwitchProject }:
               className={`relative flex h-10 w-10 items-center justify-center rounded-md transition-colors ${
                 activeView === "search"
                   ? "qm-selected"
-                  : "text-muted-foreground qm-hover"
+                  : "text-sidebar-foreground/70 qm-hover"
               }`}
             >
               <Search className="h-5 w-5" />
@@ -224,7 +224,7 @@ export function IconSidebar({ onToggleSidebar, onOpenSidebar, onSwitchProject }:
               className={`relative flex h-10 w-10 items-center justify-center rounded-md transition-colors ${
                 activeView === "trash"
                   ? "qm-selected"
-                  : "text-muted-foreground qm-hover"
+                  : "text-sidebar-foreground/70 qm-hover"
               }`}
             >
               <Trash2 className="h-5 w-5" />
@@ -255,7 +255,7 @@ export function IconSidebar({ onToggleSidebar, onOpenSidebar, onSwitchProject }:
           <Tooltip>
             <TooltipTrigger
               onClick={handleCycleTheme}
-              className="relative flex h-10 w-10 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent/50 hover:text-accent-foreground"
+              className="relative flex h-10 w-10 items-center justify-center rounded-md text-sidebar-foreground/70 transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
             >
               {getThemeIcon()}
             </TooltipTrigger>
@@ -272,7 +272,7 @@ export function IconSidebar({ onToggleSidebar, onOpenSidebar, onSwitchProject }:
               className={`relative flex h-10 w-10 items-center justify-center rounded-md transition-colors ${
                 activeView === "settings"
                   ? "qm-selected"
-                  : "text-muted-foreground qm-hover"
+                  : "text-sidebar-foreground/70 qm-hover"
               }`}
             >
               <Settings className="h-5 w-5" />
@@ -287,7 +287,7 @@ export function IconSidebar({ onToggleSidebar, onOpenSidebar, onSwitchProject }:
                 setSearchPanelOpen(false)
                 onSwitchProject()
               }}
-              className="flex h-10 w-10 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent/50 hover:text-accent-foreground"
+              className="flex h-10 w-10 items-center justify-center rounded-md text-sidebar-foreground/70 transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
             >
               <ArrowLeftRight className="h-5 w-5" />
             </TooltipTrigger>

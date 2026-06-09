@@ -34,16 +34,17 @@ export function WelcomeScreen({
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-background">
-      <div className="flex flex-col items-center gap-8 px-4">
+      <div className="flex w-full max-w-xl flex-col items-center gap-8 px-5">
         <div className="text-center">
-          <h1 className="text-3xl font-bold">{t(novelMode ? "novel.app.title" : "app.title")}</h1>
-          <p className="mt-2 text-muted-foreground">
+          <div className="mx-auto mb-5 h-1 w-20 rounded-full bg-primary" />
+          <h1 className="text-4xl font-semibold tracking-normal text-foreground">{t(novelMode ? "novel.app.title" : "app.title")}</h1>
+          <p className="mt-3 text-sm text-muted-foreground">
             {t(novelMode ? "novel.app.subtitle" : "app.subtitle")}
           </p>
         </div>
 
         <div className="flex gap-3">
-          <Button onClick={onCreateProject}>
+          <Button onClick={onCreateProject} className="shadow-sm">
             <Plus className="mr-2 h-4 w-4" />
             {t("welcome.newProject")}
           </Button>
@@ -59,7 +60,7 @@ export function WelcomeScreen({
               <Clock className="h-3.5 w-3.5" />
               {t("welcome.recentProjects")}
             </div>
-            <div className="rounded-lg border">
+            <div className="overflow-hidden rounded-lg border border-border bg-card shadow-sm">
               {recentProjects.map((proj) => (
                 <button
                   key={proj.path}

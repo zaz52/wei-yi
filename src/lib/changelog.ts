@@ -271,7 +271,7 @@ const TWO_POINT_ZERO_CHANGELOG: ChangelogEntry = {
   date: "2026-06-04",
   highlights: {
     en: [
-      "Major release: upgraded QMAI from a basic AI writing assistant into a staged novel-writing workflow with planning, generation, review, rewrite, and traceable revision loops.",
+      "Major release: upgraded QMai Studio from a basic AI writing assistant into a staged novel-writing workflow with planning, generation, review, rewrite, and traceable revision loops.",
       "AI Chat now supports deep chapter generation with context analysis, task brief, draft writing, AI review, revision, final lightweight review, and de-AI polish.",
       "AI Outline now uses staged thinking generation with live progress, outline task briefs, draft generation, self-checking, cleaner saving, and quick generation tools for chapter outlines, characters, factions, abilities, foreshadowing, and locations.",
       "Review Center was rebuilt around staged deep review and six independent professional review workflows: thrill density, setting autonomy, pacing tension, character consistency, narrative continuity, and reader pull.",
@@ -282,7 +282,7 @@ const TWO_POINT_ZERO_CHANGELOG: ChangelogEntry = {
       "Feedback submission now includes a fallback path for networks where the desktop HTTP client fails.",
     ],
     zh: [
-      "本次 2.0.0 是一次大型版本升级，青幕AI写作从普通 AI 辅助写作工具升级为更完整的小说创作工作流系统，覆盖规划、生成、审查、修改和可追踪返修。",
+      "本次 2.0.0 是一次大型版本升级，QMai Studio从普通 AI 辅助写作工具升级为更完整的小说创作工作流系统，覆盖规划、生成、审查、修改和可追踪返修。",
       "AI 会话新增深度章节生成流程：会依次进行上下文分析、写作任务书、正文初稿、AI审稿、问题返修、最终简单审查和去AI味润色，让章节生成更接近专业写作流程。",
       "深度章节生成增加约 3000 字正文目标、短正文自动扩写补足、重复输出检测、异常超长保护和停止生成逻辑，避免内容过短、复读循环或无法中断。",
       "AI 大纲升级为阶段式思考生成，支持实时显示上下文分析、大纲任务书、大纲草稿和大纲自检；同时优化保存逻辑，并新增章节细纲、人物小传、组织势力、能力体系、伏笔计划和地点设定快捷生成入口。",

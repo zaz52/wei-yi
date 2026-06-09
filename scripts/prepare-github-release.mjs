@@ -9,7 +9,7 @@ const pkg = JSON.parse(readFileSync(resolve(root, "package.json"), "utf8"))
 const releaseNotes = await buildCurrentReleaseNotes(root)
 const bundleDir = resolve(root, "src-tauri/target/release/bundle/nsis")
 const outDir = resolve(root, "release-github")
-const portableExe = resolve(root, "release-portable/QMaiWrite.exe")
+const portableExe = resolve(root, "release-portable/QMaiStudio.exe")
 
 if (!existsSync(bundleDir)) {
   throw new Error(`未找到安装包目录：${bundleDir}`)
@@ -28,15 +28,20 @@ if (!updaterAssetName) {
 }
 
 const updaterAssetPath = resolve(bundleDir, updaterAssetName)
-const releaseAssetName = `QMaiWrite_${pkg.version}_windows_X64${extname(updaterAssetName)}`
+const releaseAssetName = `QMaiStudio_${pkg.version}_windows_X64${extname(updaterAssetName)}`
 const releaseAssetPath = resolve(outDir, releaseAssetName)
 const releaseSignaturePath = `${releaseAssetPath}.sig`
+const releaseBaseUrl = process.env.QMAI_STUDIO_RELEASE_BASE_URL
+
+if (!releaseBaseUrl) {
+  throw new Error("Missing QMAI_STUDIO_RELEASE_BASE_URL, for example: https://github.com/owner/repo/releases/latest/download")
+}
 
 rmSync(outDir, { recursive: true, force: true })
 mkdirSync(outDir, { recursive: true })
 cpSync(updaterAssetPath, releaseAssetPath)
 
-const privateKeyPath = process.env.TAURI_SIGNING_PRIVATE_KEY_PATH || resolve(process.env.USERPROFILE ?? "", ".tauri/qmai-updater.key")
+const privateKeyPath = process.env.TAURI_SIGNING_PRIVATE_KEY_PATH || resolve(process.env.USERPROFILE ?? "", ".tauri/qmai-studio-updater.key")
 if (!existsSync(privateKeyPath)) {
   throw new Error(`未找到 updater 签名私钥：${privateKeyPath}`)
 }
@@ -55,18 +60,18 @@ if (result.status !== 0) {
 }
 
 if (existsSync(portableExe)) {
-  cpSync(portableExe, resolve(outDir, "QMaiWrite-portable.exe"))
+  cpSync(portableExe, resolve(outDir, "QMaiStudio-portable.exe"))
 }
 
 const signature = readFileSync(releaseSignaturePath, "utf8").trim()
 const latest = {
   version: pkg.version,
-  notes: `QMAI ${pkg.version} 发布版本`,
+  notes: `QMai Studio ${pkg.version} release`,
   pub_date: new Date().toISOString(),
   platforms: {
     "windows-x86_64": {
       signature,
-      url: `https://github.com/Mochocyang/QMAI/releases/latest/download/${releaseAssetName}`,
+      url: `${releaseBaseUrl.replace(/\/$/, "")}/${releaseAssetName}`,
     },
   },
 }

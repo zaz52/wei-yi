@@ -9,7 +9,7 @@ describe("release notes for updater manifest", () => {
   it("uses the full Chinese changelog for the current package version", async () => {
     const notes = await buildCurrentReleaseNotes()
 
-    expect(notes).not.toBe("QMAI 2.2.1 发布版本")
+    expect(notes).not.toBe("QMai Studio 2.2.1 发布版本")
     expect(notes).toContain("1. ")
     expect(notes).toContain("自动读取本地环境中的模型配置")
     expect(notes).toContain("避免旧 frontmatter 章节号")
