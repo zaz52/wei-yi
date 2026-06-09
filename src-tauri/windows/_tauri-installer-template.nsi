@@ -69,7 +69,7 @@ ${StrLoc}
 !define UNINSTALLERSIGNCOMMAND "{{uninstaller_sign_cmd}}"
 !define ESTIMATEDSIZE "{{estimated_size}}"
 !define STARTMENUFOLDER "{{start_menu_folder}}"
-!define INSTALLDIRNAME "QMaiStudio"
+!define INSTALLDIRNAME "WeiYi"
 
 Var PassiveMode
 Var UpdateMode

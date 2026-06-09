@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "QMai Studio",
+  "productName": "唯一",
   "version": "2.2.8",
-  "identifier": "com.localowner.qmaistudio",
+  "identifier": "com.zaz52.weiyi",
   "build": {
     "beforeDevCommand": "npm run dev",
     "devUrl": "http://localhost:1420",
@@ -12,7 +12,7 @@
   "app": {
     "windows": [
       {
-        "title": "QMai Studio",
+        "title": "唯一",
         "width": 1200,
         "height": 800,
         "resizable": true,

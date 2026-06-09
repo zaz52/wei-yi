@@ -1,8 +1,8 @@
 [package]
-name = "qmai-studio"
+name = "wei-yi"
 version = "2.2.8"
-description = "QMai Studio - A local-first AI writing desktop system"
-authors = ["Local Owner"]
+description = "唯一 - A local-first AI writing desktop system"
+authors = ["zaz52"]
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -12,7 +12,7 @@ name = "llm_wiki_lib"
 crate-type = ["staticlib", "cdylib", "rlib"]
 
 [[bin]]
-name = "qmai-studio"
+name = "wei-yi"
 path = "src/main.rs"
 
 [build-dependencies]

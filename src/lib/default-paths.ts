@@ -1,7 +1,7 @@
 const FALLBACK_INSTALL_DRIVE = "D"
 
 export const DEFAULT_NOVEL_DIR_NAME = "QM-BOOK"
-export const DEFAULT_INSTALL_DIR_NAME = "QMaiStudio"
+export const DEFAULT_INSTALL_DIR_NAME = "WeiYi"
 
 function extractWindowsDriveLetter(pathLike: string): string | null {
   const match = pathLike.trim().match(/^([a-zA-Z]):[\\/]/)

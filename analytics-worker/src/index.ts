@@ -1,5 +1,5 @@
 /**
- * QMai Studio - 用户统计 Cloudflare Worker
+ * 唯一 - 用户统计 Cloudflare Worker
  *
  * 功能：
  * - POST /open   : 用户启动软件时调用（注册 + 标记在线）
@@ -294,7 +294,7 @@ function renderDashboard(input: {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QMai Studio - 用户统计与反馈</title>
+  <title>唯一 - 用户统计与反馈</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #0f172a; color: #e2e8f0; padding: 2rem; min-height: 100vh; }
@@ -321,7 +321,7 @@ function renderDashboard(input: {
 </head>
 <body>
   <main>
-    <h1>QMai Studio后台</h1>
+    <h1>唯一后台</h1>
     <p class="subtle">用户统计与设置页反馈都在这里查看。</p>
 
     <h2>用户统计</h2>

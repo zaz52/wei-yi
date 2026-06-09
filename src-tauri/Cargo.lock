@@ -5745,43 +5745,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e0c5ccf5294c6ccd63a74f1565028353830a9c2f5eb0c682c355c471726a6e3f"
 
 [[package]]
-name = "qmai-studio"
-version = "2.2.8"
-dependencies = [
- "arrow-array",
- "arrow-schema",
- "base64 0.22.1",
- "calamine",
- "cfb",
- "chrono",
- "docx-rs",
- "encoding_rs",
- "futures",
- "image",
- "lancedb",
- "md-5",
- "notify",
- "pdfium-render",
- "serde",
- "serde_json",
- "sha2",
- "tauri",
- "tauri-build",
- "tauri-plugin-dialog",
- "tauri-plugin-http",
- "tauri-plugin-opener",
- "tauri-plugin-single-instance",
- "tauri-plugin-store",
- "tauri-plugin-updater",
- "tiny_http",
- "tokio",
- "uuid",
- "walkdir",
- "which",
- "zip 2.4.2",
-]
-
-[[package]]
 name = "quick-error"
 version = "2.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -8678,6 +8641,43 @@ name = "weezl"
 version = "0.1.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a28ac98ddc8b9274cb41bb4d9d4d5c425b6020c50c46f25559911905610b4a88"
+
+[[package]]
+name = "wei-yi"
+version = "2.2.8"
+dependencies = [
+ "arrow-array",
+ "arrow-schema",
+ "base64 0.22.1",
+ "calamine",
+ "cfb",
+ "chrono",
+ "docx-rs",
+ "encoding_rs",
+ "futures",
+ "image",
+ "lancedb",
+ "md-5",
+ "notify",
+ "pdfium-render",
+ "serde",
+ "serde_json",
+ "sha2",
+ "tauri",
+ "tauri-build",
+ "tauri-plugin-dialog",
+ "tauri-plugin-http",
+ "tauri-plugin-opener",
+ "tauri-plugin-single-instance",
+ "tauri-plugin-store",
+ "tauri-plugin-updater",
+ "tiny_http",
+ "tokio",
+ "uuid",
+ "walkdir",
+ "which",
+ "zip 2.4.2",
+]
 
 [[package]]
 name = "which"

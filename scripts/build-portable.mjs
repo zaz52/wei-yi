@@ -6,14 +6,14 @@ import { fileURLToPath } from "node:url"
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..")
 const pkg = JSON.parse(await readFile(resolve(root, "package.json"), "utf8"))
 
-const releaseExe = resolve(root, "src-tauri/target/release/qmai-studio.exe")
-const portableDevExe = resolve(root, "src-tauri/target/portable-dev/qmai-studio.exe")
+const releaseExe = resolve(root, "src-tauri/target/release/wei-yi.exe")
+const portableDevExe = resolve(root, "src-tauri/target/portable-dev/wei-yi.exe")
 const sourceExe = existsSync(portableDevExe) ? portableDevExe : releaseExe
 const releasePdfium = resolve(root, "src-tauri/target/release/pdfium/pdfium.dll")
 const portableDevPdfium = resolve(root, "src-tauri/target/portable-dev/pdfium/pdfium.dll")
 const sourcePdfium = existsSync(portableDevPdfium) ? portableDevPdfium : releasePdfium
 const outDir = resolve(root, "release-portable")
-const outExe = resolve(outDir, "QMaiStudio.exe")
+const outExe = resolve(outDir, "WeiYi.exe")
 const outPdfium = resolve(outDir, "pdfium/pdfium.dll")
 const outSkillDir = resolve(outDir, "NvwaSKILL")
 const manifest = resolve(outDir, "version-info.json")
@@ -45,7 +45,7 @@ mkdirSync(outDir, { recursive: true })
 // 复制 exe，处理被占用的情况
 try {
   if (existsSync(outExe)) {
-    const backupExe = resolve(outDir, "QMaiStudio-old.exe")
+    const backupExe = resolve(outDir, "WeiYi-old.exe")
     try {
       if (existsSync(backupExe)) {
         rmSync(backupExe, { force: true })
@@ -77,7 +77,7 @@ if (existsSync(sourceSkillDir)) {
 
 const exeStat = statSync(outExe)
 writeFileSync(manifest, JSON.stringify({
-  productName: "QMai Studio",
+  productName: "唯一",
   version: pkg.version,
   builtAt: new Date().toISOString(),
   sourceExe,

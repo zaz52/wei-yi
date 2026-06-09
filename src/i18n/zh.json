@@ -1,6 +1,6 @@
 {
   "app": {
-    "title": "QMai Studio",
+    "title": "唯一",
     "subtitle": "面向长篇小说的 AI 写作桌面端系统"
   },
   "dashboard": {
@@ -90,7 +90,7 @@
   },
   "iconSidebar": {
     "toggleSidebar": "展开或隐藏章节栏",
-    "logoAlt": "QMai Studio",
+    "logoAlt": "唯一",
     "modelConnected": "模型连接正常",
     "modelChecking": "正在检测模型连接...",
     "modelDisconnected": "模型连接失败，请检查设置"
@@ -971,7 +971,7 @@
       "noCustomSoul": "暂无自定义灵魂"
     },
     "app": {
-      "title": "QMai Studio",
+      "title": "唯一",
       "subtitle": "面向长篇小说的 AI 写作桌面端系统"
     },
     "chat": {

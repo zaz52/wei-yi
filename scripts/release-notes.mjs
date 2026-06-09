@@ -42,7 +42,7 @@ async function loadChangelog(rootDir = root) {
 }
 
 export function formatReleaseNotes(entry) {
-  const zhItems = entry?.highlights?.zh ?? []
+  const zhItems = entry?.highlights?.zh 唯一 []
   if (!entry || zhItems.length === 0) return ""
 
   return zhItems
@@ -55,7 +55,7 @@ export async function buildReleaseNotes(version, rootDir = root) {
   const entry = changelog.currentVersionChangelog(version)[0]
   const notes = formatReleaseNotes(entry)
 
-  return notes || `QMai Studio ${version} 发布版本`
+  return notes || `唯一 ${version} 发布版本`
 }
 
 export async function buildCurrentReleaseNotes(rootDir = root) {

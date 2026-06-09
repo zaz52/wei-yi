@@ -1,4 +1,4 @@
-export const APP_NAME = "QMai Studio"
+export const APP_NAME = "唯一"
 
 export function formatAppTitle(projectName: string | null | undefined): string {
   const name = projectName?.trim()

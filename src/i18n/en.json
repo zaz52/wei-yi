@@ -1,6 +1,6 @@
 {
   "app": {
-    "title": "QMai Studio",
+    "title": "唯一",
     "subtitle": "AI writing system for long-form novels",
     "newProject": "New Project",
     "openProject": "Open Project",
@@ -204,7 +204,7 @@
   },
   "iconSidebar": {
     "toggleSidebar": "Expand or collapse chapter sidebar",
-    "logoAlt": "QMai Studio",
+    "logoAlt": "唯一",
     "modelConnected": "Model connected",
     "modelChecking": "Checking model connection...",
     "modelDisconnected": "Model connection failed, check settings"
