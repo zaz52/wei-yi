@@ -8,7 +8,6 @@ import {
   Wrench,
   HelpCircle,
   MessageCircle,
-  HeartHandshake,
 } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import i18n from "@/i18n"
@@ -29,7 +28,6 @@ import { ChangelogSection } from "./sections/changelog-section"
 import { MaintenanceSection } from "./sections/maintenance-section"
 import { FeedbackSection } from "./sections/feedback-section"
 import { UsageGuideSection } from "./sections/usage-guide-section"
-import { ContactSupportSection } from "./sections/contact-support-section"
 
 type CategoryId =
   | "llm"
@@ -39,7 +37,6 @@ type CategoryId =
   | "usage-guide"
   | "maintenance"
   | "feedback"
-  | "contact-support"
   | "changelog"
 
 interface Category {
@@ -59,7 +56,6 @@ const CATEGORIES: Category[] = [
   { id: "usage-guide", labelKey: "settings.categories.usageGuide", icon: HelpCircle },
   { id: "maintenance", labelKey: "settings.categories.maintenance", icon: Wrench },
   { id: "feedback", labelKey: "settings.categories.feedback", icon: MessageCircle },
-  { id: "contact-support", labelKey: "settings.categories.contactSupport", icon: HeartHandshake },
   { id: "changelog", labelKey: "settings.categories.changelog", icon: History },
 ]
 
@@ -460,8 +456,6 @@ export function SettingsView() {
         return <MaintenanceSection />
       case "feedback":
         return <FeedbackSection />
-      case "contact-support":
-        return <ContactSupportSection />
       case "changelog":
         return <ChangelogSection />
     }
