@@ -11,8 +11,18 @@
 <p align="center">
   <img src="https://img.shields.io/badge/version-2.2.9-teal?style=flat-square" alt="Version" />
   <img src="https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-blue?style=flat-square" alt="Platform" />
-  <img src="https://img.shields.io/badge/license-MIT-green?style=flat-square" alt="License" />
+  <img src="https://img.shields.io/badge/source-QMAI-lightgrey?style=flat-square" alt="Reference Source" />
 </p>
+
+---
+
+## 参考来源
+
+本项目为“唯一”工作台版本，参考并基于 [Mochocyang/QMAI](https://github.com/Mochocyang/QMAI) 进行二次整理、改名、界面入口调整和文档重写。原项目名称为“青幕AI写作（QMAI）”。
+
+当前仓库不是原项目的官方发布版本；界面、名称、说明文档、安装包和发布入口均按“唯一”工作台重新整理。
+
+> 许可证说明：上游仓库当前未包含单独的 `LICENSE` 文件，本仓库因此不额外声明 MIT 许可证，仅保留参考来源说明。
 
 ---
 
