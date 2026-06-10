@@ -8673,6 +8673,7 @@ dependencies = [
  "tauri-plugin-updater",
  "tiny_http",
  "tokio",
+ "toml 0.8.2",
  "uuid",
  "walkdir",
  "which",
