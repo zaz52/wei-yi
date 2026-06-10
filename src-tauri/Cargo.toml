@@ -1,6 +1,6 @@
 [package]
 name = "wei-yi"
-version = "2.2.9"
+version = "2.2.11"
 description = "唯一 - A local-first AI writing desktop system"
 authors = ["zaz52"]
 edition = "2021"

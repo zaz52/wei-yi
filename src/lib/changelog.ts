@@ -7,6 +7,21 @@ export interface ChangelogEntry {
   }
 }
 
+const TWO_POINT_TWO_ELEVEN_CHANGELOG: ChangelogEntry = {
+  version: "2.2.11",
+  date: "2026-06-10",
+  highlights: {
+    en: [
+      "Moved the updater channel to the WeiYi GitHub release feed so in-app updates install WeiYi builds instead of upstream QMaiWrite builds.",
+      "Rebuilt the Windows installer with WeiYi branding while keeping the writing workflow unchanged.",
+    ],
+    zh: [
+      "将软件内更新通道切换到唯一自己的 GitHub 发布源，避免更新时下载并安装原版 QMaiWrite。",
+      "重新构建 Windows 安装包，安装界面和更新安装过程保持唯一品牌，写作功能逻辑不变。",
+    ],
+  },
+}
+
 const TWO_POINT_TWO_EIGHT_CHANGELOG: ChangelogEntry = {
   version: "2.2.8",
   date: "2026-06-08",
@@ -901,6 +916,7 @@ export const CHANGELOG: ChangelogEntry[] = [
 ]
 
 export function currentVersionChangelog(version: string): ChangelogEntry[] {
+  if (version === TWO_POINT_TWO_ELEVEN_CHANGELOG.version) return [TWO_POINT_TWO_ELEVEN_CHANGELOG]
   if (version === TWO_POINT_TWO_EIGHT_CHANGELOG.version) return [TWO_POINT_TWO_EIGHT_CHANGELOG]
   if (version === TWO_POINT_TWO_SEVEN_CHANGELOG.version) return [TWO_POINT_TWO_SEVEN_CHANGELOG]
   if (version === TWO_POINT_TWO_ZERO_CHANGELOG.version) return [TWO_POINT_TWO_ZERO_CHANGELOG]
@@ -914,6 +930,7 @@ export function currentVersionChangelog(version: string): ChangelogEntry[] {
 
 export function allChangelog(): ChangelogEntry[] {
   return [
+    TWO_POINT_TWO_ELEVEN_CHANGELOG,
     TWO_POINT_TWO_EIGHT_CHANGELOG,
     TWO_POINT_TWO_SEVEN_CHANGELOG,
     TWO_POINT_TWO_ZERO_CHANGELOG,

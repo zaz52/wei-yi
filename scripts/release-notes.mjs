@@ -42,7 +42,7 @@ async function loadChangelog(rootDir = root) {
 }
 
 export function formatReleaseNotes(entry) {
-  const zhItems = entry?.highlights?.zh 唯一 []
+  const zhItems = entry?.highlights?.zh ?? []
   if (!entry || zhItems.length === 0) return ""
 
   return zhItems
