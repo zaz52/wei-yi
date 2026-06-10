@@ -1,0 +1,67 @@
+name: Watch Upstream QMAI
+
+on:
+  schedule:
+    - cron: "0 1 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    name: Check upstream release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Check latest upstream release
+        id: upstream
+        run: node scripts/check-upstream-release.mjs
+
+      - name: Create sync issue
+        if: steps.upstream.outputs.update_available == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const latestTag = "${{ steps.upstream.outputs.latest_tag }}"
+            const latestVersion = "${{ steps.upstream.outputs.latest_version }}"
+            const currentVersion = "${{ steps.upstream.outputs.current_version }}"
+            const latestUrl = "${{ steps.upstream.outputs.latest_url }}"
+            const title = `同步上游 QMAI ${latestTag} 到唯一`
+            const { data: issues } = await github.rest.search.issuesAndPullRequests({
+              q: `repo:${context.repo.owner}/${context.repo.repo} is:issue is:open in:title "${title}"`,
+            })
+            if (issues.total_count > 0) {
+              core.info(`Open sync issue already exists: ${issues.items[0].html_url}`)
+              return
+            }
+            const body = [
+              `上游 QMAI 已发布 ${latestTag}，当前唯一版本是 ${currentVersion}。`,
+              "",
+              `上游发布页：${latestUrl}`,
+              "",
+              "同步执行清单：",
+              "- 拉取上游 tag 并合并功能代码",
+              "- 保留唯一品牌、工作台布局、安装器素材和更新源",
+              "- 保留使用说明飞书链接",
+              "- 保持“联系与支持”入口移除状态",
+              "- 运行 build 和 mock tests",
+              "- 构建 Windows 安装包、latest.json 和签名",
+              "- 发布到 zaz52/wei-yi Release",
+            ].join("\n")
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title,
+              body,
+              labels: ["upstream-sync"],
+            })

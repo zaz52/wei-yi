@@ -10,6 +10,7 @@
     "preview": "vite preview",
     "test": "npm run test:mocks && npm run test:llm",
     "test:mocks": "node scripts/lint-character-aura.mjs && vitest run --exclude='**/*.real-llm.test.ts' --exclude='**/.worktrees/**' --exclude='**/.codex-temp/**' --exclude='**/superpowers-main/**' --exclude='**/SKILL/**' --exclude='**/superpowers/**' --exclude='**/nul'",
+    "check:upstream": "node scripts/check-upstream-release.mjs",
     "lint:character-aura": "node scripts/lint-character-aura.mjs",
     "test:llm": "vitest run real-llm --no-file-parallelism --reporter=verbose",
     "tauri": "tauri",
