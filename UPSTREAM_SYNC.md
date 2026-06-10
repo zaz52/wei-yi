@@ -4,7 +4,7 @@
 
 自动检查：
 
-- GitHub Actions 每天 09:00 检查上游最新 Release。
+- GitHub Actions 每天 21:00 检查上游最新 Release。
 - 上游版本高于当前 `package.json` 版本时，会在 `zaz52/wei-yi` 创建同步 Issue。
 - Issue 负责提醒和列出清单；合并、构建、发布由本地执行，便于处理冲突和确认品牌。
 
